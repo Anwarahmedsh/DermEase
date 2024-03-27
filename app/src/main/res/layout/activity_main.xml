@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:text="Welcome to DermEase"
+        android:textColor="#0E0E0E"
         android:textSize="34sp"
         android:textStyle="bold"
         android:textColor="#3B2B21"
