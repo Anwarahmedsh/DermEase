@@ -3,8 +3,12 @@ package com.example.sprint1;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import androidx.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.Nullable;
 
@@ -72,16 +76,19 @@ public class DBHelper extends SQLiteOpenHelper {
         // Create tables again
         onCreate(db);
     }
-    public Boolean insertData(String username, String email, String phone, String password){
+    public Boolean insertData(userModel userMod) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        ContentValues contentValues= new ContentValues();
-        contentValues.put(Username, username);
-        contentValues.put(Email, email);
-        contentValues.put(PhoneNumber, phone);
-        contentValues.put(Password, password);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Username, userMod.get_user_name());
+        contentValues.put(Email, userMod.get_user_email());
+        contentValues.put(PhoneNumber, userMod.get_user_phone());
+        contentValues.put(Password, userMod.get_user_pass());
         long result = MyDB.insert(USER, null, contentValues);
-        if(result==-1) return false;
-        return true;
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
     public Boolean checkUsername(String username) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
@@ -100,61 +107,73 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // if a user is deleted then all his/her reservations are deleted
-    public void deleteUserWithReservations(long userID) {
+    public void deleteUserWithReservations(userModel user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Delete user
-        db.delete(USER, UserID + " = ?", new String[]{String.valueOf(userID)});
+        db.delete(USER, UserID + " = ?", new String[]{String.valueOf(user.get_user_Id())});
 
         // Delete reservations associated with the user
-        db.delete(RESERVATION, User_ID + " = ?", new String[]{String.valueOf(userID)});
+        db.delete(RESERVATION, User_ID + " = ?", new String[]{String.valueOf(user.get_user_Id())});
 
         db.close();
     }
 
-    public Boolean insertData(String docName, String service, String date){
+    public Boolean insertDataR(userModel userMod) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        ContentValues contentValues= new ContentValues();
-        contentValues.put(Doc_Name, docName);
-        contentValues.put(Service, service);
-        contentValues.put(Date, date);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Date, userMod.get_reservation_date());
+        contentValues.put(Service, userMod.get_reservation_service());
+        contentValues.put(Doc_Name, userMod.get_reservation_doctor());
         long result = MyDB.insert(RESERVATION, null, contentValues);
-        if(result==-1) return false;
-        return true;
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
     }
     // delete a reservation
-    public void deleteReservation(long reservationId) {
+    public void deleteReservation(userModel reservation) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(RESERVATION, ReservationID + " = ?", new String[]{String.valueOf(reservationId)});
+        db.delete(RESERVATION, ReservationID + " = ?", new String[]{String.valueOf(reservation.get_reservation_id())});
         db.close(); }
 
 
 
     // Method to update user information
-    public void updateUser( long id, String username, String email, String PH, String pass) {
+    public void updateUser( userModel user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Username, username);
-        values.put(Email, email);
-        values.put(PhoneNumber, PH);
-        values.put(Password, pass);
+        values.put(Username, user.get_user_name());
+        values.put(Email, user.get_user_email());
+        values.put(PhoneNumber, user.get_user_phone());
+        values.put(Password, user.get_user_pass());
 
 
-        db.update(USER, values, UserID + " = ?", new String[]{String.valueOf(id)});
+        db.update(USER, values, UserID + " = ?", new String[]{String.valueOf(user.get_user_Id())});
         db.close();
     }
 
     // Method to update reservation information
-    public void updateReservation(String reservationId, String date, String service) {
+    public void updateReservation(userModel Res) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Date, date);
-        values.put(Service, service);
+        values.put(Date, Res.get_reservation_date());
+        values.put(Service, Res.get_reservation_service());
 
-        db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(reservationId)});
+        db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(Res.get_reservation_id())});
         db.close();
     }
+
+    // Method to view reservation details
+    public Cursor get_data ()
+    {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        Cursor cursor = DB.rawQuery("Select * from RESERVATION", null);
+        return cursor;
+    }
+
 
 }
