@@ -72,14 +72,12 @@
 
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/editTextDermatologist"
+        <Spinner
+            android:id="@+id/dermatologists"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:padding="12dp"
-            android:hint="Dermatologist Name"
-            android:inputType="textPersonName" />
+            android:padding="12dp"/>
 
         <Button
             android:id="@+id/buttonAdd"
