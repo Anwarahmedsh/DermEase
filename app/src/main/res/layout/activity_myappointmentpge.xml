@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/searchView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -15,17 +15,17 @@
         android:elevation="10dp" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewAppointment1"
+        android:id="@+id/cardViewAppointment11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/searchView"
+        android:layout_below="@id/searchView1"
         android:layout_marginTop="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="10dp">
 
         <!-- Contents of Card 1 -->
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/linearLayout22"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -35,7 +35,7 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/textViewServiceType1"
+                android:id="@+id/textViewServiceType11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Cosmetic"
@@ -44,21 +44,21 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewDoctorName1"
+                android:id="@+id/textViewDoctorName11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Dr. Abdullah Ahmed"
                 android:textColor="#0B0A0A" />
 
             <TextView
-                android:id="@+id/textViewDate1"
+                android:id="@+id/textViewDate11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Date: 2024-03-27"
                 android:textColor="#040303" />
 
             <TextView
-                android:id="@+id/textViewTime1"
+                android:id="@+id/textViewTime11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Time: 14:00"
@@ -71,7 +71,7 @@
                 android:weightSum="2">
 
                 <Button
-                    android:id="@+id/buttonEdit1"
+                    android:id="@+id/buttonEdit11"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -80,7 +80,7 @@
                     android:textColor="#F8F4F4" />
 
                 <Button
-                    android:id="@+id/buttonDelete1"
+                    android:id="@+id/buttonDelete11"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -93,17 +93,17 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewAppointment2"
+        android:id="@+id/cardViewAppointment22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cardViewAppointment1"
+        android:layout_below="@id/cardViewAppointment11"
         android:layout_marginTop="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="10dp">
 
         <!-- Contents of Card 2 -->
         <LinearLayout
-            android:id="@+id/linearLayou"
+            android:id="@+id/linearLayou2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -114,7 +114,7 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/textView1cs"
+                android:id="@+id/textView1c"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Dermal check-up"
@@ -123,7 +123,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewAppointmentDr"
+                android:id="@+id/textViewAppointmentD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -131,14 +131,14 @@
                 android:textColor="#0B0A0A" />
 
             <TextView
-                android:id="@+id/textViewAppointmentDate"
+                android:id="@+id/textViewAppointmentDat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Date: 2024-03-23"
                 android:textColor="#040303" /> <!-- Example static date -->
 
             <TextView
-                android:id="@+id/textViewAppointmentTime"
+                android:id="@+id/textViewAppointmentTim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Time: 19:00"
@@ -151,7 +151,7 @@
                 android:weightSum="2">
 
                 <Button
-                    android:id="@+id/buttonEdit"
+                    android:id="@+id/buttonEdt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -160,7 +160,7 @@
                     android:textColor="#F8F4F4" />
 
                 <Button
-                    android:id="@+id/buttonDelete"
+                    android:id="@+id/buttonDelet"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
