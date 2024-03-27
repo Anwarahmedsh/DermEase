@@ -24,7 +24,7 @@
                     android:id="@+id/imageView3"
                     android:layout_width="413dp"
                     android:layout_height="383dp"
-                    android:layout_marginBottom="476dp"
+                    android:layout_marginBottom="448dp"
                     android:src="@drawable/profile"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -54,18 +54,6 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="104dp"
-                    android:layout_height="102dp"
-                    android:src="@drawable/location"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.052"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.594" />
 
                 <ImageView
                     android:id="@+id/imageView8"
@@ -107,19 +95,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.417" />
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Saudi Arabia - Riyadh "
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.701"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.595" />
 
                 <Button
                     android:id="@+id/reservations_btn"
@@ -127,7 +102,7 @@
                     android:layout_height="45dp"
                     android:background="@drawable/custom_button_shape"
                     android:backgroundTint="#3B2B21"
-                    android:text="My reservations"
+                    android:text="My Appointments"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
