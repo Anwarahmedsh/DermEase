@@ -16,7 +16,7 @@
         <!-- Logo on the left -->
         <ImageView
             android:id="@+id/HomeLogo"
-            android:layout_width="120dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:src="@drawable/logo"
@@ -29,7 +29,7 @@
             android:layout_height="50dp"
             android:layout_gravity="end"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/user" />
+            android:src="@drawable/baseline_person_24" />
     </androidx.appcompat.widget.Toolbar>
 
     <!-- First CardView -->
@@ -76,14 +76,15 @@
                 android:layout_marginTop="8dp" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:text="Book now"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center"
                 android:background="@drawable/custom_button_shape"
-                android:backgroundTint="#3B2B21"
-                />
+                android:backgroundTint="@color/btnbrown" />
 
 
         </LinearLayout>
@@ -130,13 +131,15 @@
                 android:textColor="@color/black"/>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:text="Book now"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
+                android:layout_marginTop="5dp"
                 android:layout_gravity="center"
                 android:background="@drawable/custom_button_shape"
-                android:backgroundTint="#3B2B21" />
+                android:backgroundTint="@color/btnbrown" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

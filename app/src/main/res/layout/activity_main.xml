@@ -5,35 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#DDCFCA"
+    android:background="@drawable/derm"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="462dp"
-        android:layout_height="775dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/derm" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="150dp"
         android:layout_height="48dp"
+        android:background="@drawable/custom_button_shape"
         android:backgroundTint="#3B2B21"
         android:rotation="0"
-        android:text="Log in"
-        android:background="@drawable/custom_button_shape"
+        android:text="login"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
+        app:layout_constraintVertical_bias="0.617" />
 
     <TextView
         android:id="@+id/textView2"
@@ -41,16 +33,15 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:text="Welcome to DermEase"
-        android:textColor="#0E0E0E"
+        android:textColor="@color/darkest"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:textColor="#3B2B21"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.86" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/textView3"
@@ -58,8 +49,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:text="Do not have  an account? Sign up"
-        android:textStyle="bold"
         android:textColor="#664229"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
