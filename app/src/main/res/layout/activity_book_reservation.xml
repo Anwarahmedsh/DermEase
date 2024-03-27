@@ -8,23 +8,23 @@
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Reservation"
-        android:textSize="24sp"
-        android:padding="12dp"
-        android:background="@drawable/border_background"
-        android:textStyle="bold"
-        android:textColor="@color/darkest"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"/>
+        android:layout_marginTop="90dp"
+        android:background="@drawable/border_background"
+        android:padding="12dp"
+        android:text="Add Appointment"
+        android:textColor="@color/darkest"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
         android:background="@drawable/border_background"
-        android:padding="20dp"
-        >
+        android:orientation="vertical"
+        android:padding="20dp">
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,25 +41,25 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/darkest"
-            android:textColor="@color/white"
-            android:text="Select Date" />
+            android:text="Select Date"
+            android:textColor="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="Select Time:"
-            android:textSize="20sp"
             android:textColor="@color/black"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/timeDropDown"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginBottom="16dp"
-            android:padding="12dp"
-            android:entries="@array/Times_array"/>
+            android:entries="@array/Times_array"
+            android:padding="12dp" />
 
 
         <TextView
@@ -75,18 +75,20 @@
         <Spinner
             android:id="@+id/dermatologists"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginBottom="16dp"
-            android:padding="12dp"/>
+            android:padding="12dp" />
 
         <Button
             android:id="@+id/buttonAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/custom_button_shape"
             android:backgroundTint="@color/darkest"
-            android:textColor="@color/white"
-            android:text="Add" />
+            android:text="Add"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
 </RelativeLayout>

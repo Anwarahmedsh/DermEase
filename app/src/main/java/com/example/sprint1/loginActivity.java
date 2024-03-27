@@ -1,10 +1,11 @@
 package com.example.sprint1;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-public class login extends AppCompatActivity {
+import android.os.Bundle;
+
+public class loginActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

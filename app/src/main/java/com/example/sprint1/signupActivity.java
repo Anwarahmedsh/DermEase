@@ -1,10 +1,10 @@
 package com.example.sprint1;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Signup extends AppCompatActivity {
+import android.os.Bundle;
+
+public class signupActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
