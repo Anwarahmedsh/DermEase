@@ -113,7 +113,7 @@
                 android:id="@+id/TextService2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:text="Microdermabrasion Treatment"
                 android:textColor="@color/black"/>
