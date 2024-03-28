@@ -5,12 +5,27 @@
     android:background="@color/lighterbeige"
     android:padding="8dp">
 
+
+    <ImageButton
+        android:id="@+id/home_btn"
+        android:layout_width="62dp"
+        android:layout_height="64dp"
+        android:background="@color/lightbeige"
+        android:contentDescription="@string/home_button_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="@+id/HomeToolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.002"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
+
     <SearchView
         android:id="@+id/searchView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="60dp"
         android:background="#FFFEFE"
         android:elevation="10dp" />
 
@@ -171,20 +186,6 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNav"
-        android:layout_width="424dp"
-        android:layout_height="59dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:background="@color/lightbeige"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
 
 
 </RelativeLayout>
