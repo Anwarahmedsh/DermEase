@@ -72,18 +72,6 @@
                     app:layout_constraintVertical_bias="0.517" />
 
 
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="114dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/reservation"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.033"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.626" />
-
                 <TextView
                     android:id="@+id/phone"
                     android:layout_width="wrap_content"
@@ -113,22 +101,6 @@
                     app:layout_constraintVertical_bias="0.318" />
 
                 <Button
-                    android:id="@+id/reservations_btn"
-                    android:layout_width="205dp"
-                    android:layout_height="52dp"
-                    android:background="@drawable/custom_button_shape"
-                    android:backgroundTint="#3B2B21"
-                    android:text="My Appointments"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.509"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.615" />
-
-                <Button
                     android:id="@+id/edit_btn"
                     android:layout_width="209dp"
                     android:layout_height="60dp"
@@ -141,7 +113,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.783" />
+                    app:layout_constraintVertical_bias="0.685" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/HomeToolbar"
