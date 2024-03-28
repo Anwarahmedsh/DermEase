@@ -20,11 +20,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="798dp">
 
+
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="413dp"
                     android:layout_height="383dp"
-                    android:layout_marginBottom="448dp"
+                    android:layout_marginBottom="444dp"
                     android:src="@drawable/profile"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -42,107 +43,46 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.421" />
+                    app:layout_constraintVertical_bias="0.426" />
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="223dp"
+                    android:layout_height="35dp"
+                    android:text="user_email@gmail.com"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.622"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.431" />
 
                 <ImageView
                     android:id="@+id/imageView6"
-                    android:layout_width="133dp"
-                    android:layout_height="100dp"
+                    android:layout_width="130dp"
+                    android:layout_height="96dp"
                     android:src="@drawable/phone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.517" />
+
 
                 <ImageView
                     android:id="@+id/imageView8"
-                    android:layout_width="125dp"
-                    android:layout_height="135dp"
+                    android:layout_width="114dp"
+                    android:layout_height="120dp"
                     android:src="@drawable/reservation"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.02"
+                    app:layout_constraintHorizontal_bias="0.033"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.713" />
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hailah Alshehri"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.323" />
-
-                <TextView
-                    android:id="@+id/email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="hailah@gmail.com"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.611"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.417" />
-
-
-                <Button
-                    android:id="@+id/reservations_btn"
-                    android:layout_width="158dp"
-                    android:layout_height="45dp"
-                    android:background="@drawable/custom_button_shape"
-                    android:backgroundTint="#3B2B21"
-                    android:text="My Appointments"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.584"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.693" />
-
-                <Button
-                    android:id="@+id/edit_btn"
-                    android:layout_width="209dp"
-                    android:layout_height="60dp"
-                    android:text="Edit My Info"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:background="@drawable/custom_button_shape"
-                    android:backgroundTint="#3B2B21"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.168"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.837" />
-
-                <Button
-                    android:id="@+id/home_btn"
-                    android:layout_width="115dp"
-                    android:layout_height="60dp"
-                    android:text="Home"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:background="@drawable/custom_button_shape"
-                    android:backgroundTint="#3B2B21"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.854"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.837" />
+                    app:layout_constraintVertical_bias="0.626" />
 
                 <TextView
                     android:id="@+id/phone"
@@ -154,8 +94,91 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.591"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Username"
+                    android:textColor="@color/black"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.521"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.318" />
+
+                <Button
+                    android:id="@+id/reservations_btn"
+                    android:layout_width="174dp"
+                    android:layout_height="46dp"
+                    android:background="@drawable/custom_button_shape"
+                    android:backgroundTint="#3B2B21"
+                    android:text="My Appointments"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.493"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.61" />
+
+                <Button
+                    android:id="@+id/edit_btn"
+                    android:layout_width="209dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/custom_button_shape"
+                    android:backgroundTint="#3B2B21"
+                    android:text="Edit My Info"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.815" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/HomeToolbar"
+                    android:layout_width="412dp"
+                    android:layout_height="66dp"
+                    android:background="@color/lightbeige"
+                    android:minHeight="?attr/actionBarSize"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="2dp"
+                    tools:layout_editor_absoluteY="2dp"></androidx.appcompat.widget.Toolbar>
+
+                <ImageButton
+                    android:id="@+id/home_btn"
+                    android:layout_width="62dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@color/lightbeige"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.005"
+                    app:srcCompat="?attr/actionModeCloseDrawable" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/black"
+                    android:text="Profile"
+                    android:textSize="34sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
