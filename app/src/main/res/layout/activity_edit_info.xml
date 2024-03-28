@@ -121,7 +121,7 @@
         android:layout_height="52dp"
         android:fontFamily="sans-serif-black"
         android:text="Edit My Profile"
-        android:textColor="@color/black"
+        android:textColor="@color/darkest"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
