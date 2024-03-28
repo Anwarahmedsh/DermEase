@@ -23,13 +23,6 @@
             />
 
         <!-- Account icon on the right -->
-        <ImageView
-            android:id="@+id/accountIcon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/baseline_person_24" />
     </androidx.appcompat.widget.Toolbar>
 
     <!-- First CardView -->
@@ -125,24 +118,38 @@
                 android:id="@+id/textServiceDescription2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:text="Experience the rejuvenating effects of our Microdermabrasion Treatment. This non-invasive procedure exfoliates dead skin cells, promotes collagen production, and reveals smoother, more radiant skin. Say goodbye to dullness and hello to a refreshed complexion. Book your appointment now!"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/black"/>
+                android:text="Experience the rejuvenating effects of our Microdermabrasion Treatment. This non-invasive procedure exfoliates dead skin cells, promotes collagen production, and reveals smoother, more radiant skin. Say goodbye to dullness and hello to a refreshed complexion. Book your appointment now!"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
 
             <Button
                 android:layout_width="100dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_button_shape"
+                android:backgroundTint="@color/btnbrown"
                 android:text="Book now"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center"
-                android:background="@drawable/custom_button_shape"
-                android:backgroundTint="@color/btnbrown" />
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="672dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/lightbeige"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </RelativeLayout>

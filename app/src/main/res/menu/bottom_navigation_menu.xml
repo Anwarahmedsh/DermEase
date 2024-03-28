@@ -3,24 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title=""
+         />
+    <item
         android:id="@+id/navHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/home2"
-        android:title="Home"
-         />
+        android:title="Home" />
     <item
         android:id="@+id/navRes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/reservation2"
-        android:title="Appointment"
-        />
+        android:title="Appointment" />
     <item
         android:id="@+id/navprofile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/profile2"
-        android:title="Profile"
+        android:title="Profile" />
+    <item
+        android:id="@+id/nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title=""
         />
 </menu>

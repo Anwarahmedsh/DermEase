@@ -150,11 +150,11 @@
         android:id="@+id/bottomNav"
         android:layout_width="518dp"
         android:layout_height="67dp"
-        android:layout_marginTop="672dp"
+        android:layout_marginTop="668dp"
         android:layout_marginEnd="4dp"
         android:background="@color/lightbeige"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/bottom_navigation_menu" />

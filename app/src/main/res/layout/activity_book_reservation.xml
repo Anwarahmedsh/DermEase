@@ -8,9 +8,9 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/HomeToolbar"
-        android:layout_width="412dp"
-        android:layout_height="66dp"
-        android:layout_marginBottom="136dp"
+        android:layout_width="454dp"
+        android:layout_height="69dp"
+        android:layout_marginBottom="140dp"
         android:background="@color/lightbeige"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
@@ -122,7 +122,22 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/HomeToolbar"
         app:layout_constraintEnd_toEndOf="@+id/HomeToolbar"
+        app:layout_constraintHorizontal_bias="0.346"
         app:layout_constraintStart_toEndOf="@+id/home_btn"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.484" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="540dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="668dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/lightbeige"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
