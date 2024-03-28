@@ -91,7 +91,7 @@
     <Button
         android:id="@+id/saveInfo_btn"
         android:layout_width="158dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:background="@drawable/custom_button_shape"
         android:backgroundTint="#3B2B21"
         android:text="SAVE"
@@ -121,7 +121,7 @@
         android:layout_height="52dp"
         android:fontFamily="sans-serif-black"
         android:text="Edit My Profile"
-        android:textColor="@color/black"
+        android:textColor="@color/darkest"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -143,7 +143,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:srcCompat="?attr/actionModeCloseDrawable"
+        android:contentDescription="@string/home_button_description"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
