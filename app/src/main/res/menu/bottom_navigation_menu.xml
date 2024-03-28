@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/h"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title=""/>
+
+    <item
         android:id="@+id/navHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/profile2"
-        android:title="Profile"
-        android:textSize="36dp"
-        app:itemIconSize="24dp"/>
+        android:title="Profile"/>
+
 </menu>
