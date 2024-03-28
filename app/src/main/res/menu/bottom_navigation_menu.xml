@@ -7,19 +7,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/home2"
-        android:title="Home" />
+        android:title="Home"
+         />
     <item
         android:id="@+id/navRes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/reservation2"
-        android:title="Reservations" />
+        android:title="Appointment"
+        />
     <item
         android:id="@+id/navprofile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/profile2"
         android:title="Profile"
-        android:textSize="36dp"
-        app:itemIconSize="24dp"/>
+        />
 </menu>
