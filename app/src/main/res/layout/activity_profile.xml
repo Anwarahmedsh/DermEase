@@ -114,8 +114,8 @@
 
                 <Button
                     android:id="@+id/reservations_btn"
-                    android:layout_width="174dp"
-                    android:layout_height="46dp"
+                    android:layout_width="205dp"
+                    android:layout_height="52dp"
                     android:background="@drawable/custom_button_shape"
                     android:backgroundTint="#3B2B21"
                     android:text="My Appointments"
@@ -123,10 +123,10 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.493"
+                    app:layout_constraintHorizontal_bias="0.509"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.61" />
+                    app:layout_constraintVertical_bias="0.615" />
 
                 <Button
                     android:id="@+id/edit_btn"
@@ -141,7 +141,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.815" />
+                    app:layout_constraintVertical_bias="0.783" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/HomeToolbar"
@@ -186,5 +186,14 @@
         </LinearLayout>
     </ScrollView>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="424dp"
+        android:layout_height="59dp"
+        android:background="@color/lightbeige"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

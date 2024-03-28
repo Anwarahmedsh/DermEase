@@ -145,5 +145,13 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="?attr/actionModeCloseDrawable" />
 
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="424dp"
+        android:layout_height="59dp"
+        android:background="@color/lightbeige"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
