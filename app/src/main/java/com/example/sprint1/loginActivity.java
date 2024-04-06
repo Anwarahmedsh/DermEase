@@ -1,6 +1,8 @@
 package com.example.sprint1;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,7 +51,10 @@ public class loginActivity extends AppCompatActivity {
             // Credentials are correct
             Toast.makeText(loginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-            // Proceed to another activity or do further processing
+            // Proceed to HomeActivity
+            Intent intent = new Intent(loginActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish(); // Close the login screen 
         } else {
             // Credentials are incorrect
             Toast.makeText(loginActivity.this, "Login Failed. Invalid username or password.", Toast.LENGTH_SHORT).show();
