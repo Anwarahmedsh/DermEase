@@ -20,7 +20,9 @@ import java.util.Calendar;
 public class BookReservation extends AppCompatActivity {
 
     Button selectDateButton;
+    Button addButton;
     Spinner selectTimeSpinner;
+    Spinner selectDermatologist;
     Calendar selectedDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +31,25 @@ public class BookReservation extends AppCompatActivity {
 
         selectDateButton = findViewById(R.id.dateSelector);
         selectTimeSpinner = findViewById(R.id.timeSpinner);
+        addButton = findViewById(R.id.buttonAdd);
+        selectDermatologist = findViewById(R.id.dermatologistSpinner);
+
 
         setupTimeSpinner();
+        setupDermatologistSpinner();
 
         // Set a click listener on the button to show the date picker dialog
         selectDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitForm();
             }
         });
     }
@@ -72,6 +85,21 @@ public class BookReservation extends AppCompatActivity {
         });
     }
 
+    private void setupDermatologistSpinner() {
+        // Array of dermatologist options
+        String[] dermatologistOptions = {"Dr. Smith", "Dr. Johnson", "Dr. Williams", "Dr. Brown"};
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, dermatologistOptions);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        selectDermatologist.setAdapter(adapter);
+    }
+
     // Method to show the date picker dialog
     private void showDatePickerDialog() {
         final Calendar currentDate = Calendar.getInstance();
@@ -96,5 +124,27 @@ public class BookReservation extends AppCompatActivity {
 
         datePickerDialog.show();
 
+    }
+
+    private void submitForm() {
+
+        // Get the selected time
+        String selectedTime = (String) selectTimeSpinner.getSelectedItem();
+        String selectedDermatologist = (String) selectDermatologist.getSelectedItem();
+
+        if (selectedDate == null) {
+            Toast.makeText(BookReservation.this, "Please select a date", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (selectedTime == null) {
+            Toast.makeText(BookReservation.this, "Please select a time", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (selectedDermatologist == null) {
+            Toast.makeText(BookReservation.this, "Please select a dermatologist", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Toast.makeText(BookReservation.this, "Reservation submitted:\nDate: " + selectedDate.getTime().toString() + "\nTime: " + selectedTime + "\nDermatologist: " + selectedDermatologist, Toast.LENGTH_LONG).show();
     }
 }

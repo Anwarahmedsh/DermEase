@@ -25,7 +25,6 @@
         <!-- Account icon on the right -->
     </androidx.appcompat.widget.Toolbar>
 
-    <!-- First CardView -->
     <androidx.cardview.widget.CardView
         android:id="@+id/firstCard"
         android:layout_width="match_parent"
