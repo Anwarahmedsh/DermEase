@@ -2,13 +2,99 @@ package com.example.sprint1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+
+
+
+import java.util.Calendar;
 
 public class BookReservation extends AppCompatActivity {
 
+    Button selectDateButton;
+    Spinner selectTimeSpinner;
+    Calendar selectedDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_reservation);
+
+        selectDateButton = findViewById(R.id.dateSelector);
+        selectTimeSpinner = findViewById(R.id.timeSpinner);
+
+        setupTimeSpinner();
+
+        // Set a click listener on the button to show the date picker dialog
+        selectDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+    }
+
+    private void setupTimeSpinner() {
+        // Array of time options (9am to 6pm)
+        String[] timeOptions = {"9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
+                "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"};
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, timeOptions);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        selectTimeSpinner.setAdapter(adapter);
+
+        // Set a listener to handle item selections
+        selectTimeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Handle the selected time
+                String selectedTime = (String) parentView.getItemAtPosition(position);
+                Toast.makeText(BookReservation.this, "Selected time: " + selectedTime, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing
+            }
+        });
+    }
+
+    // Method to show the date picker dialog
+    private void showDatePickerDialog() {
+        final Calendar currentDate = Calendar.getInstance();
+        int year = currentDate.get(Calendar.YEAR);
+        int month = currentDate.get(Calendar.MONTH);
+        int day = currentDate.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        selectedDate = Calendar.getInstance();
+                        selectedDate.set(Calendar.YEAR, year);
+                        selectedDate.set(Calendar.MONTH, monthOfYear);
+                        selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        // You can use the selected date here as needed
+                        // For example, you might display it in a TextView or use it to perform further processing
+                        Toast.makeText(BookReservation.this, "Selected date: " + selectedDate.getTime().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }, year, month, day);
+
+        datePickerDialog.show();
+
     }
 }

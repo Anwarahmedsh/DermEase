@@ -10,12 +10,12 @@
         android:id="@+id/HomeToolbar"
         android:layout_width="454dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="660dp"
         android:background="@color/lightbeige"
         android:minHeight="?attr/actionBarSize"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
     </androidx.appcompat.widget.Toolbar>
@@ -37,7 +37,7 @@
         android:layout_width="350dp"
         android:layout_height="400dp"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="128dp"
+        android:layout_marginBottom="180dp"
         android:background="@drawable/border_background"
         android:orientation="vertical"
         android:padding="20dp"
@@ -57,7 +57,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/buttonDate"
+            android:id="@+id/dateSelector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -75,11 +75,10 @@
             android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/timeDropDown"
+            android:id="@+id/timeSpinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="16dp"
-            android:entries="@array/Times_array"
             android:padding="12dp" />
 
 
@@ -94,7 +93,7 @@
             android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/dermatologists"
+            android:id="@+id/dermatologistSpinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="16dp"
@@ -122,10 +121,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/HomeToolbar"
         app:layout_constraintEnd_toEndOf="@+id/HomeToolbar"
-        app:layout_constraintHorizontal_bias="0.346"
+        app:layout_constraintHorizontal_bias="0.24"
         app:layout_constraintStart_toEndOf="@+id/home_btn"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.484" />
+        app:layout_constraintVertical_bias="0.41" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
