@@ -54,7 +54,8 @@ public class editappointmentinfoActivity extends AppCompatActivity {
 
     private void populateTimes() {
         // Assume you have a list of available times in an array
-        String[] times = getResources().getStringArray(R.array.Times_array);
+        String[] times = {"9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
+                "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, times);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -63,7 +64,7 @@ public class editappointmentinfoActivity extends AppCompatActivity {
 
     private void populateDermatologists() {
         // Assume you have a list of dermatologists' names in an array
-        String[] dermatologistsArray = getResources().getStringArray(R.array.Dermatologists_array);
+        String[] dermatologistsArray = {"Dr. Smith", "Dr. Johnson", "Dr. Williams", "Dr. Brown"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dermatologistsArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
