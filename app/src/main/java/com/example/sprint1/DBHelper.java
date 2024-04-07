@@ -27,16 +27,17 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String RESERVATION = "reservation";
 
     // User table column names
-    private static final String UserID = "userID";
+    private static int UserID  ;
     private static final String Username = "username";
     private static final String Email = "email";
     private static final String PhoneNumber = "phoneNumber";
     private static final String Password = "password";
 
     // Reservation table column names
-    private static final String User_ID = "user_ID";
-    private static final String ReservationID = "reservationID";
+    private static int User_ID ;
+    private static int ReservationID ;
     private static final String Date = "date";
+    private static final String Time = "time";
     private static final String Doc_Name = "doctorName";
     private static final String Service = "serviceType";
 
@@ -62,6 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Doc_Name + " TEXT, " +
                 Service + " TEXT," +
                  Date + " TEXT, " +
+                Time + " TEXT, " +
                 "FOREIGN KEY (" + User_ID + ") REFERENCES " + USER + "(" + UserID + ") ON DELETE CASCADE)";
 
         db.execSQL(createReservationTableQuery);
@@ -123,6 +125,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Date, userMod.get_reservation_date());
+        contentValues.put(Time, userMod.get_reservation_time());
         contentValues.put(Service, userMod.get_reservation_service());
         contentValues.put(Doc_Name, userMod.get_reservation_doctor());
         long result = MyDB.insert(RESERVATION, null, contentValues);
@@ -156,24 +159,27 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Method to update reservation information
-    public void updateReservation(userModel Res) {
+    public boolean updateReservation(userModel Res) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(Date, Res.get_reservation_date());
-        values.put(Service, Res.get_reservation_service());
+        values.put(Time, Res.get_reservation_time());
+        values.put(Doc_Name, Res.get_reservation_doctor());
 
-        db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(Res.get_reservation_id())});
+        int rowsAffected = db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(Res.get_reservation_id())});
         db.close();
+
+        return rowsAffected > 0; // Return true if at least one row was updated
     }
 
     // Method to view reservation details
-    public Cursor get_data ()
+    public Cursor get_data (int userId)
     {
-        SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from RESERVATION", null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + RESERVATION +
+                " WHERE " + User_ID + " = ?", new String[]{String.valueOf(userId)});
         return cursor;
     }
-
 
 }

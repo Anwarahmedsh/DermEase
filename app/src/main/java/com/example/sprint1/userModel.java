@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
         private int ReservationID ;
         private String Date ;
+        private String Time ;
         private String Doc_Name ;
         private String Service ;
 
@@ -26,10 +27,11 @@ import androidx.annotation.NonNull;
         }
 
         // Constructor including reservation properties
-        public userModel(int u_id, int id, String date, String doctor, String service ) {
+        public userModel(int u_id, int id, String date, String time, String doctor, String service ) {
             this.UserID = u_id;
             this.ReservationID = id;
-            this.Date = date;
+            this.Date = " ";
+            this.Time = time ;
             this.Doc_Name = doctor;
             this.Service = service;
         }
@@ -44,6 +46,7 @@ import androidx.annotation.NonNull;
                     ", password ='" + Password + '\'' +
                     ", Reservation ID ='" + ReservationID + '\'' +
                     ", Date=" + Date +
+                    ", Time=" + Time +
                     ", Doctor =" + Doc_Name +
                     ", Service Type =" + Service +
                     '}';
@@ -104,6 +107,14 @@ import androidx.annotation.NonNull;
             this.Date = date;
         }
 
+        public String get_reservation_time() {
+            return Time;
+        }
+
+        public void set_reservation_time(String time) {
+            this.Time = time;
+        }
+
         public String get_reservation_service() {
             return Service;
         }
@@ -119,7 +130,6 @@ import androidx.annotation.NonNull;
         public void set_reservation_doctor(String doctor) {
             this.Doc_Name = doctor;
         }
-
 
 
 
