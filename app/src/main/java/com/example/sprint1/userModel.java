@@ -135,14 +135,13 @@ public class userModel {
             this.Doc_Name = doctor;
         }
 
+         public void addReservation(reservationModel reservation) {
+        this.reservations.add(reservation);
+        }
 
-
-
-
-
-
-
-
+        public void removeReservation(reservationModel reservation) {
+        this.reservations.remove(reservation);
+       }
 
     }
 

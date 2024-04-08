@@ -56,5 +56,6 @@ public class reservationModel {
         public void set_reservation_service(String serviceType) {
             this.serviceType = serviceType;
         }
+
     }
 
