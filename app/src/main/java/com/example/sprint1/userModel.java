@@ -2,14 +2,17 @@ package com.example.sprint1;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
-    public class userModel {
+public class userModel {
         private int UserID ;
         private String Username ;
         private String Email ;
         private String PhoneNumber ;
         private String Password ;
+        private List<reservationModel> reservations;
 
         private int ReservationID ;
         private String Date ;
@@ -24,6 +27,7 @@ import androidx.annotation.NonNull;
             this.Email = email;
             this.PhoneNumber = phone;
             this.Password = password;
+            this.reservations = new ArrayList<>();
         }
 
         // Constructor including reservation properties

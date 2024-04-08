@@ -27,15 +27,15 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String RESERVATION = "reservation";
 
     // User table column names
-    private static int UserID  ;
+    private static final String UserID = "userid" ;
     private static final String Username = "username";
     private static final String Email = "email";
     private static final String PhoneNumber = "phoneNumber";
     private static final String Password = "password";
 
     // Reservation table column names
-    private static int User_ID ;
-    private static int ReservationID ;
+    private static final String User_ID = "userid" ;
+    private static final String ReservationID = "reservationid" ;
     private static final String Date = "date";
     private static final String Time = "time";
     private static final String Doc_Name = "doctorName";
@@ -50,7 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createUserTableQuery = "CREATE TABLE IF NOT EXISTS " + USER + " (" +
-                UserID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                UserID + " TEXT PRIMARY KEY AUTOINCREMENT, " +
                 Username + " TEXT, " +
                 Email + " TEXT, " +
                 PhoneNumber + " TEXT, " +
@@ -59,7 +59,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // Create reservation
         String createReservationTableQuery = "CREATE TABLE IF NOT EXISTS " + RESERVATION + " (" +
-               ReservationID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+               ReservationID + " TEXT PRIMARY KEY AUTOINCREMENT, " +
                 Doc_Name + " TEXT, " +
                 Service + " TEXT," +
                  Date + " TEXT, " +
@@ -121,19 +121,43 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public Boolean insertDataR(userModel userMod) {
-        SQLiteDatabase MyDB = this.getWritableDatabase();
+    public Boolean insertReservationData(reservationModel reservation) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Date, userMod.get_reservation_date());
-        contentValues.put(Time, userMod.get_reservation_time());
-        contentValues.put(Service, userMod.get_reservation_service());
-        contentValues.put(Doc_Name, userMod.get_reservation_doctor());
-        long result = MyDB.insert(RESERVATION, null, contentValues);
-        if (result == -1) {
-            return false;
-        } else {
-            return true;
+        contentValues.put(Date, reservation.get_reservation_date());
+        contentValues.put(Time, reservation.get_reservation_time());
+        contentValues.put(Service, reservation.get_reservation_service());
+        contentValues.put(Doc_Name, reservation.get_reservation_doctor());
+        long result = db.insert(RESERVATION, null, contentValues);
+        return result != -1;
+    }
+
+    public List<reservationModel> getReservationsForUser(int userId) {
+        List<reservationModel> reservations = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + RESERVATION +
+                " WHERE " + User_ID + " = ?", new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            int reservationIdIndex = cursor.getColumnIndex(ReservationID);
+            int dateIndex = cursor.getColumnIndex(Date);
+            int timeIndex = cursor.getColumnIndex(Time);
+            int doctorIndex = cursor.getColumnIndex(Doc_Name);
+            int serviceIndex = cursor.getColumnIndex(Service);
+
+            do {
+                int reservationId = cursor.getInt(reservationIdIndex);
+                String date = cursor.getString(dateIndex);
+                String time = cursor.getString(timeIndex);
+                String doctorName = cursor.getString(doctorIndex);
+                String serviceType = cursor.getString(serviceIndex);
+
+                reservationModel reservation = new reservationModel(reservationId, date, time, doctorName, serviceType);
+                reservations.add(reservation);
+            } while (cursor.moveToNext());
         }
+        cursor.close();
+        return reservations;
     }
     // delete a reservation
     public void deleteReservation(userModel reservation) {
