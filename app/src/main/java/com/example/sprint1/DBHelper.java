@@ -96,15 +96,17 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("Select * from " + USER + " where " + Username + " = ?", new
                 String[]{username});
-        if (cursor.getCount() > 0) return true;
-        return false;
+        boolean usernameExists = cursor.getCount() > 0;
+        cursor.close();
+        return usernameExists;
     }
     public Boolean checkUsernamePassword(String username, String password){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("Select * from " + USER + " where " + Username + " = ? and " + Password +
                 " = ?", new String[] {username,password});
-        if(cursor.getCount()>0) return true;
-        return false;
+        boolean userExists = cursor.getCount() > 0;
+        cursor.close();
+        return userExists;
     }
 
 
@@ -124,6 +126,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Boolean insertReservationData(reservationModel reservation) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(User_ID, reservation.getUserId());
         contentValues.put(Date, reservation.get_reservation_date());
         contentValues.put(Time, reservation.get_reservation_time());
         contentValues.put(Service, reservation.get_reservation_service());
@@ -152,7 +155,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String doctorName = cursor.getString(doctorIndex);
                 String serviceType = cursor.getString(serviceIndex);
 
-                reservationModel reservation = new reservationModel(reservationId, date, time, doctorName, serviceType);
+                reservationModel reservation = new reservationModel(userId, reservationId, date, time, doctorName, serviceType);
                 reservations.add(reservation);
             } while (cursor.moveToNext());
         }
@@ -160,7 +163,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return reservations;
     }
     // delete a reservation
-    public void deleteReservation(userModel reservation) {
+    public void deleteReservation(reservationModel reservation) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(RESERVATION, ReservationID + " = ?", new String[]{String.valueOf(reservation.get_reservation_id())});
         db.close(); }
@@ -183,7 +186,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Method to update reservation information
-    public boolean updateReservation(userModel Res) {
+    public boolean updateReservation(reservationModel Res) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();

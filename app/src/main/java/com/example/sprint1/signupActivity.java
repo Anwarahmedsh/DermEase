@@ -1,5 +1,7 @@
 package com.example.sprint1;
 
+import static java.sql.Types.NULL;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,7 +53,7 @@ public class signupActivity extends AppCompatActivity {
             }
 
             // Since userID is auto-incremented, we can pass any integer value here, it will be ignored by SQLite
-            userModel newUser = new userModel(0, username, email, phoneNumber, password);
+            userModel newUser = new userModel(NULL, username, email, phoneNumber, password);
 
             boolean isInserted = dbHelper.insertData(newUser);
             if (isInserted) {

@@ -14,12 +14,6 @@ public class userModel {
         private String Password ;
         private List<reservationModel> reservations;
 
-        private int ReservationID ;
-        private String Date ;
-        private String Time ;
-        private String Doc_Name ;
-        private String Service ;
-
 
         public userModel(int id, String name, String email, String phone, String password) {
             this.UserID = id ;
@@ -31,29 +25,23 @@ public class userModel {
         }
 
         // Constructor including reservation properties
-        public userModel(int u_id, int id, String date, String time, String doctor, String service ) {
-            this.UserID = u_id;
-            this.ReservationID = id;
-            this.Date = " ";
-            this.Time = time ;
-            this.Doc_Name = doctor;
-            this.Service = service;
-        }
+
         @NonNull
         @Override
         public String toString() {
-            return "userModel{" +
-                    "user ID =" + UserID +
-                    ", Name ='" + Username + '\'' +
-                    ", Email ='" + Email + '\'' +
-                    ", Phone Number ='" + PhoneNumber + '\'' +
-                    ", password ='" + Password + '\'' +
-                    ", Reservation ID ='" + ReservationID + '\'' +
-                    ", Date=" + Date +
-                    ", Time=" + Time +
-                    ", Doctor =" + Doc_Name +
-                    ", Service Type =" + Service +
-                    '}';
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("UserID: ").append(UserID).append('\n')
+                    .append("Username: ").append(Username).append('\n')
+                    .append("Email: ").append(Email).append('\n')
+                    .append("PhoneNumber: ").append(PhoneNumber).append('\n')
+                    .append("Password: ").append(Password).append('\n')
+                    .append("Reservations:");
+
+            for (reservationModel reservation : reservations) {
+                stringBuilder.append(reservation.toString()).append("\n");
+            }
+
+            return stringBuilder.toString();
         }
         public int get_user_Id() {
             return UserID;
@@ -95,45 +83,9 @@ public class userModel {
             this.Password = pass;
         }
 
-        public int get_reservation_id() {
-            return ReservationID;
-        }
-
-        public void set_reservation_id(int id) {
-            this.ReservationID = id;
-        }
-
-        public String get_reservation_date() {
-            return Date;
-        }
-
-        public void set_reservation_date(String date) {
-            this.Date = date;
-        }
-
-        public String get_reservation_time() {
-            return Time;
-        }
-
-        public void set_reservation_time(String time) {
-            this.Time = time;
-        }
-
-        public String get_reservation_service() {
-            return Service;
-        }
-
-        public void set_reservation_service(String service) {
-            this.Service = service;
-        }
-
-        public String get_reservation_doctor() {
-            return Doc_Name;
-        }
-
-        public void set_reservation_doctor(String doctor) {
-            this.Doc_Name = doctor;
-        }
+    public List<reservationModel> getReservations() {
+        return new ArrayList<>(reservations);
+    }
 
          public void addReservation(reservationModel reservation) {
         this.reservations.add(reservation);

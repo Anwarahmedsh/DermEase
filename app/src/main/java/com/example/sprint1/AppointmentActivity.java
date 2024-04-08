@@ -25,10 +25,10 @@ public class AppointmentActivity extends AppCompatActivity {
         // Assuming you have references to your CardView and the parent layout
         LinearLayout parentLayout = findViewById(R.id.parentLayout); // Assuming a LinearLayout as the parent layout
         // Assuming you have a list of reservations (userModel objects)
-        List<userModel> reservations = new ArrayList<>(); // Populate this list with reservations
+        List<reservationModel> reservations = new ArrayList<>(); // Populate this list with reservations
 
         // Loop through the reservations and create CardViews dynamically
-        for (userModel reservation : reservations) {
+        for (reservationModel reservation : reservations) {
             CardView cardView = new CardView(this);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,

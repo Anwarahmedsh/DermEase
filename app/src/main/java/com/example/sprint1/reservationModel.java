@@ -1,6 +1,10 @@
 package com.example.sprint1;
 
+import androidx.annotation.NonNull;
+
 public class reservationModel {
+
+        private int UserId;
         private int reservationId;
         private String date;
         private String time;
@@ -8,15 +12,24 @@ public class reservationModel {
         private String serviceType;
 
         // Constructor
-        public reservationModel(int reservationId, String date, String time, String doctorName, String serviceType) {
+        public reservationModel(int UserId, int reservationId, String date, String time, String doctorName, String serviceType) {
             this.reservationId = reservationId;
             this.date = date;
             this.time = time;
             this.doctorName = doctorName;
             this.serviceType = serviceType;
+            this.UserId = UserId;
         }
+    // Getters and setters
+    public void setUserId(int userId) {
+        UserId = userId;
+    }
 
-        // Getters and setters
+    public int getUserId() {
+        return UserId;
+    }
+
+
         public int get_reservation_id() {
             return reservationId;
         }
@@ -57,5 +70,16 @@ public class reservationModel {
             this.serviceType = serviceType;
         }
 
+    @NonNull
+    public String toString() {
+        return "Reservation{" + '\n'+
+                "reservationId: " + reservationId + "\n" +
+                "date: " + date  + "\n" +
+                "time: " + time + "\n" +
+                "doctorName: " + doctorName+ "\n" +
+                "serviceType: " + serviceType + "\n" +
+                '}';
     }
+}
+
 

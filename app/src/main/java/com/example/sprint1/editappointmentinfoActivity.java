@@ -19,7 +19,7 @@ public class editappointmentinfoActivity extends AppCompatActivity {
     private Button buttonAdd;
 
     private DBHelper dbHelper;
-    private userModel reservation;
+    private reservationModel reservation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
