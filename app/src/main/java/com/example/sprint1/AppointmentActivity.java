@@ -84,15 +84,8 @@ public class AppointmentActivity extends AppCompatActivity {
             buttonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Handle edit button click
-                    int reservationId = reservation.get_reservation_id();
-
-                    // Create an Intent to navigate to the EditAppointmentActivity
-                    Intent intent = new Intent(AppointmentActivity.this, editappointmentinfoActivity.class);
-                    intent.putExtra("RESERVATION_ID", reservationId);
-
-                    // Start the EditAppointmentActivity
-                    startActivity(intent);
+                    // Handle delete button click
+                    dbHelper.deleteReservation(reservation);
                 }
             });
 
