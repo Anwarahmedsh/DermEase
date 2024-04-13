@@ -20,6 +20,8 @@ public class reservationModel {
             this.serviceType = serviceType;
             this.UserId = UserId;
         }
+
+
     // Getters and setters
     public void setUserId(int userId) {
         UserId = userId;

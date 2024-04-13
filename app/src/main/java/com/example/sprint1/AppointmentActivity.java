@@ -16,10 +16,18 @@ import java.util.List;
 
 public class AppointmentActivity extends AppCompatActivity {
 
+    Intent intent;
+    int userId;
+    DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myappointmentpge);
+
+        intent=getIntent();
+        userId = intent.getIntExtra("userID", 0);
+        dbHelper=new DBHelper(this);
 
 
         // Assuming you have references to your CardView and the parent layout
@@ -47,7 +55,7 @@ public class AppointmentActivity extends AppCompatActivity {
             TextView textViewDate = cardViewContent.findViewById(R.id.textViewDate11);
             TextView textViewTime = cardViewContent.findViewById(R.id.textViewTime11);
             Button buttonEdit = cardViewContent.findViewById(R.id.buttonEdit11);
-            Button buttonDelete = cardViewContent.findViewById(R.id.buttonDelete11);
+            Button buttonDelete = cardViewContent.findViewById(R.id.buttonDelete);
 
             // Set reservation details to the TextViews
             textViewServiceType.setText(reservation.get_reservation_service());
@@ -64,8 +72,23 @@ public class AppointmentActivity extends AppCompatActivity {
 
                     // Create an Intent to navigate to the EditAppointmentActivity
                     Intent intent = new Intent(AppointmentActivity.this, editappointmentinfoActivity.class);
+                    // Pass the reservation ID, user ID to the EditAppointmentActivity
+                    intent.putExtra("RESERVATION_ID", reservationId);
+                    intent.putExtra("userId", userId);
 
-                    // Pass the reservation ID to the EditAppointmentActivity
+                    // Start the EditAppointmentActivity
+                    startActivity(intent);
+                }
+            });
+
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Handle edit button click
+                    int reservationId = reservation.get_reservation_id();
+
+                    // Create an Intent to navigate to the EditAppointmentActivity
+                    Intent intent = new Intent(AppointmentActivity.this, editappointmentinfoActivity.class);
                     intent.putExtra("RESERVATION_ID", reservationId);
 
                     // Start the EditAppointmentActivity

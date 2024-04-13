@@ -50,20 +50,21 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createUserTableQuery = "CREATE TABLE IF NOT EXISTS " + USER + " (" +
-                UserID + " TEXT PRIMARY KEY AUTOINCREMENT, " +
+                UserID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Username + " TEXT, " +
                 Email + " TEXT, " +
-                PhoneNumber + " TEXT, " +
+                PhoneNumber + " INTEGER, " +
                 Password + " TEXT)";
         db.execSQL(createUserTableQuery);
 
         // Create reservation
         String createReservationTableQuery = "CREATE TABLE IF NOT EXISTS " + RESERVATION + " (" +
-               ReservationID + " TEXT PRIMARY KEY AUTOINCREMENT, " +
+               ReservationID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 Doc_Name + " TEXT, " +
                 Service + " TEXT," +
                  Date + " TEXT, " +
                 Time + " TEXT, " +
+                User_ID + " INTEGER, "+
                 "FOREIGN KEY (" + User_ID + ") REFERENCES " + USER + "(" + UserID + ") ON DELETE CASCADE)";
 
         db.execSQL(createReservationTableQuery);
@@ -208,5 +209,58 @@ public class DBHelper extends SQLiteOpenHelper {
                 " WHERE " + User_ID + " = ?", new String[]{String.valueOf(userId)});
         return cursor;
     }
+
+    public int getUserIdByUsername(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        int userId = -1; // Default value if user is not found
+
+        Cursor cursor = db.rawQuery("SELECT " + UserID + " FROM " + USER + " WHERE " + Username + " = ?", new String[]{username});
+        if (cursor != null && cursor.moveToFirst()) {
+            int userIdIndex = cursor.getColumnIndex(UserID);
+            if (userIdIndex != -1) {
+                userId = cursor.getInt(userIdIndex);
+            }
+        }
+        if(cursor != null){
+            cursor.close();
+        }
+        return userId;
+    }
+
+    // Inside DBHelper class
+
+    public reservationModel getReservationByDTD(String selectedDate, String selectedTime, String selectedDermatologist) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        reservationModel reservation = null;
+
+        // Construct the SQL query
+        String query = "SELECT * FROM " + RESERVATION +
+                " WHERE " + Date + " = ?" +
+                " AND " + Time + " = ?" +
+                " AND " + Doc_Name + " = ?";
+        String[] selectionArgs = {selectedDate, selectedTime, selectedDermatologist};
+
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+        if (cursor.moveToFirst()) {
+            int userIdIndex = cursor.getColumnIndex(User_ID);
+            int reservationIdIndex = cursor.getColumnIndex(ReservationID);
+            int dateIndex = cursor.getColumnIndex(Date);
+            int timeIndex = cursor.getColumnIndex(Time);
+            int doctorIndex = cursor.getColumnIndex(Doc_Name);
+            int serviceIndex = cursor.getColumnIndex(Service);
+
+            int userId = cursor.getInt(userIdIndex);
+            int reservationId = cursor.getInt(reservationIdIndex);
+            String date = cursor.getString(dateIndex);
+            String time = cursor.getString(timeIndex);
+            String doctorName = cursor.getString(doctorIndex);
+            String serviceType = cursor.getString(serviceIndex);
+
+            reservation = new reservationModel(userId, reservationId, date, time, doctorName, serviceType);
+        }
+        cursor.close();
+        return reservation;
+    }
+
 
 }

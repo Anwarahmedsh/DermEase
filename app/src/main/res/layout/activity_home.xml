@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lighterbeige"
-    tools:context=".MainActivity">
+    android:id="@+id/fragment_container">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/HomeToolbar"
@@ -124,6 +124,7 @@
                 android:textSize="13sp" />
 
             <Button
+                android:id="@+id/bookNowBtn2"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"

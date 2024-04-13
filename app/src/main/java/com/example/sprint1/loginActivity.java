@@ -51,8 +51,10 @@ public class loginActivity extends AppCompatActivity {
             // Credentials are correct
             Toast.makeText(loginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-            // Proceed to HomeActivity
+            // Proceed to HomeActivity and send UserId with it
+
             Intent intent = new Intent(loginActivity.this, HomeActivity.class);
+            intent.putExtra("userID", dbHelper.getUserIdByUsername(username)); // Put the username as an extra
             startActivity(intent);
             finish(); // Close the login screen 
         } else {

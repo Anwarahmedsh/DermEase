@@ -77,7 +77,7 @@
                     android:textColor="#F8F4F4" />
 
                 <Button
-                    android:id="@+id/buttonDelete11"
+                    android:id="@+id/buttonDelete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

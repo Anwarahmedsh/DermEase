@@ -1,12 +1,16 @@
 package com.example.sprint1;
 
+import static java.sql.Types.NULL;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,25 +18,45 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 
-
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class BookReservation extends AppCompatActivity {
-
+    ImageButton returnHome;
     Button selectDateButton;
     Button addButton;
     Spinner selectTimeSpinner;
     Spinner selectDermatologist;
     Calendar selectedDate;
+    DBHelper dbHelper;
+    reservationModel reservation;
+    String serviceType;
+    int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_reservation);
 
+        Intent intent = getIntent();
+        userId = intent.getIntExtra("userId",0);
+        serviceType = intent.getStringExtra("service");
+
+        dbHelper = new DBHelper(this);
         selectDateButton = findViewById(R.id.dateSelector);
         selectTimeSpinner = findViewById(R.id.timeSpinner);
         addButton = findViewById(R.id.buttonAdd);
         selectDermatologist = findViewById(R.id.dermatologistSpinner);
+        returnHome= findViewById(R.id.home_btn);
+
+        returnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(BookReservation.this, HomeActivity.class);
+                intent.putExtra("userID", userId);
+                startActivity(intent);
+            }
+        });
 
 
         setupTimeSpinner();
@@ -131,6 +155,19 @@ public class BookReservation extends AppCompatActivity {
         // Get the selected time
         String selectedTime = (String) selectTimeSpinner.getSelectedItem();
         String selectedDermatologist = (String) selectDermatologist.getSelectedItem();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Format the Calendar object into a string
+        String dateString = dateFormat.format(selectedDate.getTime());
+
+        //returns the reservation that has the same date time and dermatologist
+        reservationModel temp= dbHelper.getReservationByDTD(dateString,selectedTime,selectedDermatologist);
+
+        //it won't let the user reserve a reservation that had been already reserved
+        if(temp!=null){
+            Toast.makeText(BookReservation.this, "Sorry, this time isn't available with this dermatologist please select another one", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (selectedDate == null) {
             Toast.makeText(BookReservation.this, "Please select a date", Toast.LENGTH_SHORT).show();
@@ -145,6 +182,15 @@ public class BookReservation extends AppCompatActivity {
             return;
         }
 
-        Toast.makeText(BookReservation.this, "Reservation submitted:\nDate: " + selectedDate.getTime().toString() + "\nTime: " + selectedTime + "\nDermatologist: " + selectedDermatologist, Toast.LENGTH_LONG).show();
+        Toast.makeText(BookReservation.this, "Reservation submitted:\nDate: " + dateString + "\nTime: " + selectedTime + "\nDermatologist: " + selectedDermatologist, Toast.LENGTH_LONG).show();
+        reservation=new reservationModel(userId,NULL, dateString,selectedTime,selectedDermatologist,serviceType);
+        if(!dbHelper.insertReservationData(reservation)){
+            Toast.makeText(BookReservation.this, "reservation failed", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent intent = new Intent(BookReservation.this, HomeActivity.class);
+        intent.putExtra("userID", userId);// Put the username as an extra
+        startActivity(intent);
     }
 }
