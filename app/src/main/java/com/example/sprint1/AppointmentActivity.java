@@ -22,6 +22,7 @@ public class AppointmentActivity extends AppCompatActivity {
     int userId;
     DBHelper dbHelper;
     private BottomNavigationView bottomNavigationView;
+    private LinearLayout parentLayout; // Add this variable
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,42 @@ public class AppointmentActivity extends AppCompatActivity {
 
         userId = getIntent().getIntExtra("userID", 0);
         dbHelper = new DBHelper(this);
+        parentLayout = findViewById(R.id.parentLayout); // Initialize the parent layout
 
+        loadAppointments(); // Load appointments initially
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            Intent intent2;
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navHome) {
+                    // Start HomeActivity
+                    intent2 = new Intent(AppointmentActivity.this, HomeActivity.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                } else if (item.getItemId() == R.id.navRes) {
+                    // Start AppointmentActivity
+                    intent2 = new Intent(AppointmentActivity.this, AppointmentActivity.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                } else if (item.getItemId() == R.id.navprofile) {
+                    // Start ProfileActivity
+                    intent2 = new Intent(AppointmentActivity.this, profile.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void loadAppointments() {
         // Fetch reservations for the logged-in user
         List<reservationModel> reservations = dbHelper.getReservationsForUser(userId);
-
-        // Assuming you have a reference to the parent layout
-        LinearLayout parentLayout = findViewById(R.id.parentLayout);
 
         // Loop through the reservations and create CardViews dynamically
         for (reservationModel reservation : reservations) {
@@ -86,32 +117,12 @@ public class AppointmentActivity extends AppCompatActivity {
             // Add the card view content to the parent layout
             parentLayout.addView(cardViewContent);
         }
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            Intent intent2;
+    }
 
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.navHome) {
-                    // Start HomeActivity
-                    intent2 = new Intent(AppointmentActivity.this, HomeActivity.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
-                    return true;
-                } else if (item.getItemId() == R.id.navRes) {
-                    // Start AppointmentActivity
-                    intent2 = new Intent(AppointmentActivity.this, AppointmentActivity.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
-                    return true;
-                } else if (item.getItemId() == R.id.navprofile) {
-                    // Start ProfileActivity
-                    intent2 = new Intent(AppointmentActivity.this, profile.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
-                    return true;
-                }
-                return false;
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Refresh data when the activity is resumed
+        loadAppointments();
     }
 }

@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteAbortException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -187,18 +189,21 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Method to update reservation information
-    public boolean updateReservation(reservationModel Res) {
+    public void updateReservation(reservationModel Res) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Date, Res.get_reservation_date());
-        values.put(Time, Res.get_reservation_time());
-        values.put(Doc_Name, Res.get_reservation_doctor());
+        values.put("Date", Res.get_reservation_date());
+        values.put("Time", Res.get_reservation_time());
+        values.put("Doc_Name", Res.get_reservation_doctor());
 
-        int rowsAffected = db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(Res.get_reservation_id())});
-        db.close();
-
-        return rowsAffected > 0; // Return true if at least one row was updated
+        try {
+            db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(Res.get_reservation_id())});
+        } catch (Exception e) {
+            Log.e("DB_UPDATE_ERROR", "Error updating reservation: " + e.getMessage());
+        } finally {
+            db.close();
+        }
     }
 
     // Method to view reservation details

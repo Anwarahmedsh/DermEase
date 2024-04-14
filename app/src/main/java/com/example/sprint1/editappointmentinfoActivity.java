@@ -17,9 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class editappointmentinfoActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
@@ -57,6 +55,35 @@ public class editappointmentinfoActivity extends AppCompatActivity {
             populateDermatologists();
             setListeners();
         }
+
+        bottomNavigationView = findViewById(R.id.bottomNav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            Intent intent2;
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navHome) {
+                    // Start HomeActivity
+                    intent2 = new Intent(editappointmentinfoActivity.this, HomeActivity.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                } else if (item.getItemId() == R.id.navRes) {
+                    // Start AppointmentActivity
+                    intent2 = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                } else if (item.getItemId() == R.id.navprofile) {
+                    // Start ProfileActivity
+                    intent2 = new Intent(editappointmentinfoActivity.this, profile.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private void populateTimes() {
@@ -127,44 +154,12 @@ public class editappointmentinfoActivity extends AppCompatActivity {
         reservation.set_reservation_doctor(selectedDoctor);
         reservation.set_reservation_date(selectedDate.getTime().toString());
 
-        boolean updated = dbHelper.updateReservation(reservation);
+        dbHelper.updateReservation(reservation); // Call the void method
 
-        if (updated) {
-            Toast.makeText(editappointmentinfoActivity.this, "Appointment updated successfully.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
-            intent.putExtra("userID", userId);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(editappointmentinfoActivity.this, "Error updating appointment.", Toast.LENGTH_SHORT).show();
-        }
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            Intent intent2;
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.navHome) {
-                    // Start HomeActivity
-                    intent2 = new Intent(editappointmentinfoActivity.this, HomeActivity.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
-                    return true;
-                } else if (item.getItemId() == R.id.navRes) {
-                    // Start AppointmentActivity
-                    intent2 = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
-                    return true;
-                } else if (item.getItemId() == R.id.navprofile) {
-                    // Start ProfileActivity
-                    intent2 = new Intent(editappointmentinfoActivity.this, profile.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
-                    return true;
-                }
-                return false;
-            }
-        });
+        Toast.makeText(editappointmentinfoActivity.this, "Appointment updated successfully.", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
+        intent.putExtra("userID", userId);
+        startActivity(intent);
+        finish();
     }
 }
