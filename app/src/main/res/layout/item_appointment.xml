@@ -27,25 +27,29 @@
                     android:id="@+id/textViewServiceType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Service Type" />
+                    android:text="Service Type"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/textViewDoctorName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Doctor Name" />
+                    android:text="Doctor Name"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/textViewDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Date" />
+                    android:text="Date"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/textViewTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Time" />
+                    android:text="Time"
+                    android:textColor="@color/black"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

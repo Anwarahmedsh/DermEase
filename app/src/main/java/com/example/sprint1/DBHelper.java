@@ -262,5 +262,70 @@ public class DBHelper extends SQLiteOpenHelper {
         return reservation;
     }
 
+    public reservationModel getReservationById(int reservationId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        reservationModel reservation = null;
 
+        Cursor cursor = db.query(
+                RESERVATION,
+                new String[]{ReservationID, User_ID, Service, Doc_Name, Date, Time},
+                ReservationID + "=?",
+                new String[]{String.valueOf(reservationId)},
+                null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int userIdIndex = cursor.getColumnIndex(User_ID);
+            int dateIndex = cursor.getColumnIndex(Date);
+            int timeIndex = cursor.getColumnIndex(Time);
+            int doctorIndex = cursor.getColumnIndex(Doc_Name);
+            int serviceIndex = cursor.getColumnIndex(Service);
+
+            int userId = cursor.getInt(userIdIndex);
+            String date = cursor.getString(dateIndex);
+            String time = cursor.getString(timeIndex);
+            String doctorName = cursor.getString(doctorIndex);
+            String serviceType = cursor.getString(serviceIndex);
+
+            // Create the reservation model object
+            reservation = new reservationModel(reservationId, userId, serviceType, doctorName, date, time);
+
+            cursor.close();
+        }
+
+        return reservation;
+    }
+
+    public userModel getUserById(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        userModel user = null;
+
+        Cursor cursor = db.query(
+                USER,
+                new String[]{UserID, Username, Email, PhoneNumber, Password},
+                UserID + "=?",
+                new String[]{String.valueOf(userId)},
+                null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(UserID);
+            int nameIndex = cursor.getColumnIndex(Username);
+            int emailIndex = cursor.getColumnIndex(Email);
+            int phoneIndex = cursor.getColumnIndex(PhoneNumber);
+            int passIndex = cursor.getColumnIndex(Password);
+
+            int id = cursor.getInt(idIndex);
+            String name = cursor.getString(nameIndex);
+            String email = cursor.getString(emailIndex);
+            String phone = cursor.getString(phoneIndex);
+            String pass = cursor.getString(passIndex);
+
+            // Create the user model object
+            user = new userModel(id, name, email, phone, pass);
+
+            cursor.close();
+        }
+
+        return user;
+    }
 }
+

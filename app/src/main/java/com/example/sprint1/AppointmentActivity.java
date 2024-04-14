@@ -1,14 +1,18 @@
 package com.example.sprint1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -17,11 +21,14 @@ public class AppointmentActivity extends AppCompatActivity {
     Intent intent;
     int userId;
     DBHelper dbHelper;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myappointmentpge);
+        bottomNavigationView = findViewById(R.id.bottomNav);
+        bottomNavigationView.setSelectedItemId(R.id.navHome);
 
         userId = getIntent().getIntExtra("userID", 0);
         dbHelper = new DBHelper(this);
@@ -51,19 +58,15 @@ public class AppointmentActivity extends AppCompatActivity {
             textViewDate.setText(reservation.get_reservation_date());
             textViewTime.setText(reservation.get_reservation_time());
 
-            // Set click listener for edit button
             buttonEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Handle edit button click
                     int reservationId = reservation.get_reservation_id();
-
-                    // Create an Intent to navigate to the EditAppointmentActivity
                     Intent intent = new Intent(AppointmentActivity.this, editappointmentinfoActivity.class);
-                    // Pass the reservation ID, user ID to the EditAppointmentActivity
+                    // Pass the reservation ID to the EditAppointmentActivity
                     intent.putExtra("RESERVATION_ID", reservationId);
                     intent.putExtra("userId", userId);
-
                     // Start the EditAppointmentActivity
                     startActivity(intent);
                 }
@@ -83,5 +86,32 @@ public class AppointmentActivity extends AppCompatActivity {
             // Add the card view content to the parent layout
             parentLayout.addView(cardViewContent);
         }
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            Intent intent2;
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navHome) {
+                    // Start HomeActivity
+                    intent2 = new Intent(AppointmentActivity.this, HomeActivity.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                } else if (item.getItemId() == R.id.navRes) {
+                    // Start AppointmentActivity
+                    intent2 = new Intent(AppointmentActivity.this, AppointmentActivity.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                } else if (item.getItemId() == R.id.navprofile) {
+                    // Start ProfileActivity
+                    intent2 = new Intent(AppointmentActivity.this, profile.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

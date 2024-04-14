@@ -1,50 +1,90 @@
 package com.example.sprint1;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class editappointmentinfoActivity extends AppCompatActivity {
-
-    private Spinner timeDropDown;
-    private Spinner dermatologists;
-    private Spinner dateSpinner; // Change to Spinner
-    private Button buttonAdd;
-
+    private BottomNavigationView bottomNavigationView;
+    private Spinner spinnerTime;
+    private Spinner spinnerDermatologist;
+    private Button dateSelector;
+    private Button buttonUpdate;
+    private int reservationId;
+    private int userId;
     private DBHelper dbHelper;
     private reservationModel reservation;
+    private Calendar selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editappointmentinfo);
 
-        timeDropDown = findViewById(R.id.timeDropDown);
-        dermatologists = findViewById(R.id.dermatologists);
-        dateSpinner = findViewById(R.id.dateSpinner); // Initialize Spinner
-        buttonAdd = findViewById(R.id.buttonAdd);
+        spinnerTime = findViewById(R.id.timeDropDown);
+        spinnerDermatologist = findViewById(R.id.dermatologists);
+        dateSelector = findViewById(R.id.dateSelector);
+        buttonUpdate = findViewById(R.id.buttonAdd);
 
-        dbHelper = new DBHelper(this);
-
-        reservation = getIntent().getParcelableExtra("RESERVATION");
-
-        if (reservation == null) {
-            Toast.makeText(this, "Error: Reservation not found.", Toast.LENGTH_SHORT).show();
-            finish();
+        Intent intent = getIntent();
+        if (intent != null) {
+            reservationId = intent.getIntExtra("RESERVATION_ID", 0);
+            userId = intent.getIntExtra("userId", 0);
         }
 
-        populateTimes();
-        populateDermatologists();
-        populateDates(); // Populate the Spinner with dates
+        dbHelper = new DBHelper(this);
+        reservation = dbHelper.getReservationById(reservationId);
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+        if (reservation != null) {
+            populateTimes();
+            populateDermatologists();
+            setListeners();
+        }
+    }
+
+    private void populateTimes() {
+        String[] times = {"9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
+                "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, times);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTime.setAdapter(adapter);
+    }
+
+    private void populateDermatologists() {
+        String[] dermatologistsArray = {"Dr. Smith", "Dr. Johnson", "Dr. Williams", "Dr. Brown"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dermatologistsArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDermatologist.setAdapter(adapter);
+    }
+
+    private void setListeners() {
+        dateSelector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateAppointment();
@@ -52,56 +92,79 @@ public class editappointmentinfoActivity extends AppCompatActivity {
         });
     }
 
-    private void populateTimes() {
-        // Assume you have a list of available times in an array
-        String[] times = {"9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
-                "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"};
+    private void showDatePickerDialog() {
+        final Calendar currentDate = Calendar.getInstance();
+        int year = currentDate.get(Calendar.YEAR);
+        int month = currentDate.get(Calendar.MONTH);
+        int day = currentDate.get(Calendar.DAY_OF_MONTH);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, times);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        timeDropDown.setAdapter(adapter);
-    }
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        selectedDate = Calendar.getInstance();
+                        selectedDate.set(Calendar.YEAR, year);
+                        selectedDate.set(Calendar.MONTH, monthOfYear);
+                        selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-    private void populateDermatologists() {
-        // Assume you have a list of dermatologists' names in an array
-        String[] dermatologistsArray = {"Dr. Smith", "Dr. Johnson", "Dr. Williams", "Dr. Brown"};
+                        Toast.makeText(editappointmentinfoActivity.this, "Selected date: " + selectedDate.getTime().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }, year, month, day);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dermatologistsArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dermatologists.setAdapter(adapter);
-    }
-    private void populateDates() {
-        // Populate the Spinner with dates
-        List<String> datesList = new ArrayList<>(); // Populate this list with dates
-
-        // Add dates to the list (e.g., from a database or a predefined list)
-        datesList.add("2024-6-19");
-        datesList.add("2024-6-21");
-        datesList.add("2024-7-1");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, datesList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dateSpinner.setAdapter(adapter);
+        datePickerDialog.show();
     }
 
     private void updateAppointment() {
-        String selectedTime = timeDropDown.getSelectedItem().toString();
-        String selectedDoctor = dermatologists.getSelectedItem().toString();
-        String selectedDate = dateSpinner.getSelectedItem().toString(); // Get selected date from Spinner
+        String selectedTime = spinnerTime.getSelectedItem().toString();
+        String selectedDoctor = spinnerDermatologist.getSelectedItem().toString();
 
-        // Update the reservation information including date
-        reservation.set_reservation_date(selectedDate);
+        if (selectedDate == null) {
+            Toast.makeText(this, "Please select a date.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         reservation.set_reservation_time(selectedTime);
         reservation.set_reservation_doctor(selectedDoctor);
+        reservation.set_reservation_date(selectedDate.getTime().toString());
 
-        // Update the reservation in the database
         boolean updated = dbHelper.updateReservation(reservation);
 
         if (updated) {
             Toast.makeText(editappointmentinfoActivity.this, "Appointment updated successfully.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
+            intent.putExtra("userID", userId);
+            startActivity(intent);
             finish();
         } else {
             Toast.makeText(editappointmentinfoActivity.this, "Error updating appointment.", Toast.LENGTH_SHORT).show();
         }
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            Intent intent2;
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navHome) {
+                    // Start HomeActivity
+                    intent2 = new Intent(editappointmentinfoActivity.this, HomeActivity.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                } else if (item.getItemId() == R.id.navRes) {
+                    // Start AppointmentActivity
+                    intent2 = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                } else if (item.getItemId() == R.id.navprofile) {
+                    // Start ProfileActivity
+                    intent2 = new Intent(editappointmentinfoActivity.this, profile.class);
+                    intent2.putExtra("userID", userId);
+                    startActivity(intent2);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }
