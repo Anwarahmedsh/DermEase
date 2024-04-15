@@ -119,10 +119,5 @@ public class AppointmentActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Refresh data when the activity is resumed
-        loadAppointments();
-    }
+
 }
