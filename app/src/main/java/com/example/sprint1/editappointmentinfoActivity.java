@@ -154,12 +154,24 @@ public class editappointmentinfoActivity extends AppCompatActivity {
         reservation.set_reservation_doctor(selectedDoctor);
         reservation.set_reservation_date(selectedDate.getTime().toString());
 
-        dbHelper.updateReservation(reservation); // Call the void method
+        // Validate reservation ID
+        if (validateReservationId(reservationId)) {
+            // Update reservation if ID is valid
+            dbHelper.updateReservation(reservation); // Call the void method
 
-        Toast.makeText(editappointmentinfoActivity.this, "Appointment updated successfully.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
-        intent.putExtra("userID", userId);
-        startActivity(intent);
-        finish();
+            Toast.makeText(editappointmentinfoActivity.this, "Appointment updated successfully.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
+            intent.putExtra("userID", userId);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "Invalid reservation ID.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean validateReservationId(int reservationId) {
+        // Use DBHelper to check if the reservation ID exists in the database
+        reservationModel existingReservation = dbHelper.getReservationById(reservationId);
+        return existingReservation != null;
     }
 }
