@@ -37,7 +37,6 @@ public class editappointmentinfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editappointmentinfo);
 
         spinnerTime = findViewById(R.id.timeDropDown);
-        spinnerDermatologist = findViewById(R.id.dermatologists);
         dateSelector = findViewById(R.id.dateSelector);
         buttonUpdate = findViewById(R.id.buttonAdd);
 
@@ -52,7 +51,6 @@ public class editappointmentinfoActivity extends AppCompatActivity {
 
         if (reservation != null) {
             populateTimes();
-            populateDermatologists();
             setListeners();
         }
 
@@ -95,13 +93,7 @@ public class editappointmentinfoActivity extends AppCompatActivity {
         spinnerTime.setAdapter(adapter);
     }
 
-    private void populateDermatologists() {
-        String[] dermatologistsArray = {"Dr. Smith", "Dr. Johnson", "Dr. Williams", "Dr. Brown"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dermatologistsArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDermatologist.setAdapter(adapter);
-    }
 
     private void setListeners() {
         dateSelector.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +135,6 @@ public class editappointmentinfoActivity extends AppCompatActivity {
 
     private void updateAppointment() {
         String selectedTime = spinnerTime.getSelectedItem().toString();
-        String selectedDoctor = spinnerDermatologist.getSelectedItem().toString();
 
         if (selectedDate == null) {
             Toast.makeText(this, "Please select a date.", Toast.LENGTH_SHORT).show();
@@ -151,8 +142,9 @@ public class editappointmentinfoActivity extends AppCompatActivity {
         }
 
         reservation.set_reservation_time(selectedTime);
-        reservation.set_reservation_doctor(selectedDoctor);
         reservation.set_reservation_date(selectedDate.getTime().toString());
+
+        Toast.makeText(editappointmentinfoActivity.this, "Reservation time: "+reservation.get_reservation_time()+"\nReservation date: "+reservation.get_reservation_date(), Toast.LENGTH_SHORT).show();
 
         // Validate reservation ID
         if (validateReservationId(reservationId)) {

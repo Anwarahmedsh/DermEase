@@ -66,6 +66,7 @@ public class AppointmentActivity extends AppCompatActivity {
         });
     }
 
+
     private void loadAppointments() {
         // Fetch reservations for the logged-in user
         List<reservationModel> reservations = dbHelper.getReservationsForUser(userId);
@@ -97,7 +98,7 @@ public class AppointmentActivity extends AppCompatActivity {
                     Intent intent = new Intent(AppointmentActivity.this, editappointmentinfoActivity.class);
                     // Pass the reservation ID to the EditAppointmentActivity
                     intent.putExtra("RESERVATION_ID", reservationId);
-                    intent.putExtra("userId", userId);
+                    intent.putExtra("userID", userId);
                     // Start the EditAppointmentActivity
                     startActivity(intent);
                 }

@@ -195,7 +195,6 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Date, Res.get_reservation_date());
         values.put(Time, Res.get_reservation_time());
-        values.put(Doc_Name, Res.get_reservation_doctor());
 
         try {
             db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(Res.get_reservation_id())});
