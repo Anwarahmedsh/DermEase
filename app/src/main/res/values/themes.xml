@@ -1,6 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Sprint1" parent="Theme.AppCompat.Light">
+    <style name="Base.Theme.Sprint1" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/lightbeige</item>
+    </style>
+
+    <style name="Base.Theme.Sprint1.WithActionBar" parent="Theme.AppCompat.Light">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/lightbeige</item>
     </style>
