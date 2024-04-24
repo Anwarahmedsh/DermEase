@@ -2,10 +2,11 @@ package com.example.sprint1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -14,111 +15,102 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
-
 public class AppointmentActivity extends AppCompatActivity {
-
-    Intent intent;
-    int userId;
-    DBHelper dbHelper;
     private BottomNavigationView bottomNavigationView;
-    private LinearLayout parentLayout; // Add this variable
+    private LinearLayout parentLayout;
+    private DBHelper dbHelper;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myappointmentpge);
+
+        initializeViews();
+        initializeNavigation();
+        loadAppointments();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadAppointments();  // This will refresh the appointment list every time the activity resumes
+    }
+
+    private void initializeViews() {
         bottomNavigationView = findViewById(R.id.bottomNav);
-        bottomNavigationView.setSelectedItemId(R.id.navHome);
-
-        userId = getIntent().getIntExtra("userID", 0);
+        parentLayout = findViewById(R.id.parentLayout);
         dbHelper = new DBHelper(this);
-        parentLayout = findViewById(R.id.parentLayout); // Initialize the parent layout
+        userId = getIntent().getIntExtra("userID", 0);
+        bottomNavigationView.setSelectedItemId(R.id.navHome);
+    }
 
-        loadAppointments(); // Load appointments initially
-
+    private void initializeNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            Intent intent2;
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.navHome) {
-                    // Start HomeActivity
-                    intent2 = new Intent(AppointmentActivity.this, HomeActivity.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
+                int id = item.getItemId();
+                if (id == R.id.navHome) {
+                    navigate(HomeActivity.class);
                     return true;
-                } else if (item.getItemId() == R.id.navRes) {
-                    // Start AppointmentActivity
-                    intent2 = new Intent(AppointmentActivity.this, AppointmentActivity.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
-                    return true;
-                } else if (item.getItemId() == R.id.navprofile) {
-                    // Start ProfileActivity
-                    intent2 = new Intent(AppointmentActivity.this, profile.class);
-                    intent2.putExtra("userID", userId);
-                    startActivity(intent2);
+                } else if (id == R.id.navprofile) {
+                    navigate(profile.class);
                     return true;
                 }
                 return false;
             }
+
         });
     }
 
-
+    private void navigate(Class<?> activityClass) {
+        Intent intent = new Intent(AppointmentActivity.this, activityClass);
+        intent.putExtra("userID", userId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
     private void loadAppointments() {
-        // Fetch reservations for the logged-in user
+        parentLayout.removeAllViews(); // Clear all existing views to avoid duplicate entries
+
         List<reservationModel> reservations = dbHelper.getReservationsForUser(userId);
 
-        // Loop through the reservations and create CardViews dynamically
-        for (reservationModel reservation : reservations) {
-            // Inflate the layout for the card view
-            View cardViewContent = getLayoutInflater().inflate(R.layout.item_appointment, null);
-
-            // Get references to views in the card view content
-            TextView textViewServiceType = cardViewContent.findViewById(R.id.textViewServiceType);
-            TextView textViewDoctorName = cardViewContent.findViewById(R.id.textViewDoctorName);
-            TextView textViewDate = cardViewContent.findViewById(R.id.textViewDate);
-            TextView textViewTime = cardViewContent.findViewById(R.id.textViewTime);
-            Button buttonEdit = cardViewContent.findViewById(R.id.buttonEdit);
-            Button buttonDelete = cardViewContent.findViewById(R.id.buttonDelete);
-
-            // Set reservation details to the TextViews
-            textViewServiceType.setText(reservation.get_reservation_service());
-            textViewDoctorName.setText(reservation.get_reservation_doctor());
-            textViewDate.setText(reservation.get_reservation_date());
-            textViewTime.setText(reservation.get_reservation_time());
-
-            buttonEdit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Handle edit button click
-                    int reservationId = reservation.get_reservation_id();
-                    Intent intent = new Intent(AppointmentActivity.this, editappointmentinfoActivity.class);
-                    // Pass the reservation ID to the EditAppointmentActivity
-                    intent.putExtra("RESERVATION_ID", reservationId);
-                    intent.putExtra("userID", userId);
-                    // Start the EditAppointmentActivity
-                    startActivity(intent);
-                }
-            });
-
-            // Set click listener for delete button
-            buttonDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Handle delete button click
-                    dbHelper.deleteReservation(reservation);
-                    // Remove the card view from the parent layout after deletion
-                    parentLayout.removeView(cardViewContent);
-                }
-            });
-
-            // Add the card view content to the parent layout
-            parentLayout.addView(cardViewContent);
+        if (reservations.isEmpty()) {
+            Log.d("AppointmentActivity", "No appointments found for user: " + userId);
+        } else {
+            for (reservationModel reservation : reservations) {
+                View appointmentView = getLayoutInflater().inflate(R.layout.item_appointment, parentLayout, false);
+                setupCardView(appointmentView, reservation);
+                parentLayout.addView(appointmentView);
+            }
         }
     }
 
 
+    private void setupCardView(View cardViewContent, reservationModel reservation) {
+        TextView textViewServiceType = cardViewContent.findViewById(R.id.textViewServiceType);
+        TextView textViewDoctorName = cardViewContent.findViewById(R.id.textViewDoctorName);
+        TextView textViewDate = cardViewContent.findViewById(R.id.textViewDate);
+        TextView textViewTime = cardViewContent.findViewById(R.id.textViewTime);
+        Button buttonEdit = cardViewContent.findViewById(R.id.buttonEdit);
+        Button buttonDelete = cardViewContent.findViewById(R.id.buttonDelete);
+
+        textViewServiceType.setText(reservation.get_reservation_service());
+        textViewDoctorName.setText(reservation.get_reservation_doctor());
+        textViewDate.setText(reservation.get_reservation_date());
+        textViewTime.setText(reservation.get_reservation_time());
+
+        buttonEdit.setOnClickListener(v -> editAppointment(reservation));
+        buttonDelete.setOnClickListener(v -> deleteAppointment(cardViewContent, reservation));
+    }
+
+    private void editAppointment(reservationModel reservation) {
+        Intent intent = new Intent(AppointmentActivity.this, editappointmentinfoActivity.class);
+        intent.putExtra("Reservation", reservation);
+        intent.putExtra("userID", userId);
+        startActivity(intent);
+    }
+
+    private void deleteAppointment(View cardViewContent, reservationModel reservation) {
+        dbHelper.deleteReservation(reservation);
+        parentLayout.removeView(cardViewContent); // Remove the card view from the parent layout
+    }
 }

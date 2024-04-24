@@ -135,9 +135,34 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(Service, reservation.get_reservation_service());
         contentValues.put(Doc_Name, reservation.get_reservation_doctor());
         long result = db.insert(RESERVATION, null, contentValues);
+        reservation.set_reservation_id(getReservationIdByDetails(reservation.get_reservation_date(),reservation.get_reservation_time(), reservation.get_reservation_doctor()));
         return result != -1;
     }
 
+    public Integer getReservationIdByDetails(String date, String time, String doctorName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            // Prepare the SQL query
+            String query = "SELECT "+ReservationID+" FROM RESERVATION WHERE "+ Date +" = ? AND "+ Time +"  = ? AND "+Doc_Name+ " = ?";
+            cursor = db.rawQuery(query, new String[] { date, time, doctorName });
+
+            // Check if a result was returned
+            if (cursor != null && cursor.moveToFirst()) {
+                int reservationId = cursor.getInt(0); // Assuming ReservationID is at index 0
+                return reservationId;
+            }
+            return null; // No reservation found
+        } catch (Exception e) {
+            Log.e("DBHelper", "Error finding reservation", e);
+            return null;
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Close the cursor
+            }
+            db.close(); // Close the database
+        }
+    }
     public List<reservationModel> getReservationsForUser(int userId) {
         List<reservationModel> reservations = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -189,21 +214,20 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Method to update reservation information
-    public void updateReservation(reservationModel Res) {
+    public boolean updateReservation(reservationModel Res) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(Date, Res.get_reservation_date());
         values.put(Time, Res.get_reservation_time());
 
-        try {
-            db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(Res.get_reservation_id())});
-        } catch (Exception e) {
-            Log.e("DB_UPDATE_ERROR", "Error updating reservation: " + e.getMessage());
-        } finally {
-            db.close();
-        }
+        Log.d("DBHelper", "id date and time: " + Res.get_reservation_id()+" "+ Res.get_reservation_date()+ " "+ Res.get_reservation_time());
+
+        int rowsUpdated = db.update(RESERVATION, values, ReservationID + " = ?", new String[]{String.valueOf(Res.get_reservation_id())});
+        Log.d("DBHelper", "Update rows affected: " + rowsUpdated);
+
+        return rowsUpdated > 0;
     }
+
 
     // Method to view reservation details
     public Cursor get_data (int userId)

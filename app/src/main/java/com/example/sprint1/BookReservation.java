@@ -39,7 +39,7 @@ public class BookReservation extends AppCompatActivity {
         setContentView(R.layout.activity_book_reservation);
 
         Intent intent = getIntent();
-        userId = intent.getIntExtra("userId",0);
+        userId = intent.getIntExtra("userID",0);
         serviceType = intent.getStringExtra("service");
 
         dbHelper = new DBHelper(this);
@@ -157,17 +157,6 @@ public class BookReservation extends AppCompatActivity {
         String selectedDermatologist = (String) selectDermatologist.getSelectedItem();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        // Format the Calendar object into a string
-        String dateString = dateFormat.format(selectedDate.getTime());
-
-        //returns the reservation that has the same date time and dermatologist
-        reservationModel temp= dbHelper.getReservationByDTD(dateString,selectedTime,selectedDermatologist);
-
-        //it won't let the user reserve a reservation that had been already reserved
-        if(temp!=null){
-            Toast.makeText(BookReservation.this, "Sorry, this time isn't available with this dermatologist please select another one", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         if (selectedDate == null) {
             Toast.makeText(BookReservation.this, "Please select a date", Toast.LENGTH_SHORT).show();
@@ -182,9 +171,23 @@ public class BookReservation extends AppCompatActivity {
             return;
         }
 
+        // Format the Calendar object into a string
+        String dateString = dateFormat.format(selectedDate.getTime());
+
+        //returns the reservation that has the same date time and dermatologist
+        reservationModel temp= dbHelper.getReservationByDTD(dateString,selectedTime,selectedDermatologist);
+
+        //it won't let the user reserve a reservation that had been already reserved
+        if(temp!=null){
+            Toast.makeText(BookReservation.this, "Sorry, this time isn't available with this dermatologist please select another one", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         Toast.makeText(BookReservation.this, "Reservation submitted:\nDate: " + dateString + "\nTime: " + selectedTime + "\nDermatologist: " + selectedDermatologist, Toast.LENGTH_LONG).show();
         reservation=new reservationModel(userId,NULL, dateString,selectedTime,selectedDermatologist,serviceType);
         if(!dbHelper.insertReservationData(reservation)){
+
             Toast.makeText(BookReservation.this, "reservation failed", Toast.LENGTH_SHORT).show();
             return;
         }

@@ -2,7 +2,9 @@ package com.example.sprint1;
 
 import androidx.annotation.NonNull;
 
-public class reservationModel {
+import java.io.Serializable;
+
+public class reservationModel implements Serializable {
 
         private int UserId;
         private int reservationId;

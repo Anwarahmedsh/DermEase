@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class editappointmentinfoActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class editappointmentinfoActivity extends AppCompatActivity {
     private Spinner spinnerDermatologist;
     private Button dateSelector;
     private Button buttonUpdate;
-    private int reservationId;
+
     private int userId;
     private DBHelper dbHelper;
     private reservationModel reservation;
@@ -42,12 +43,12 @@ public class editappointmentinfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            reservationId = intent.getIntExtra("RESERVATION_ID", 0);
-            userId = intent.getIntExtra("userId", 0);
+            reservation = (reservationModel) intent.getSerializableExtra("Reservation");
+            userId = intent.getIntExtra("userID", 0);
         }
 
         dbHelper = new DBHelper(this);
-        reservation = dbHelper.getReservationById(reservationId);
+
 
         if (reservation != null) {
             populateTimes();
@@ -135,21 +136,29 @@ public class editappointmentinfoActivity extends AppCompatActivity {
 
     private void updateAppointment() {
         String selectedTime = spinnerTime.getSelectedItem().toString();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         if (selectedDate == null) {
             Toast.makeText(this, "Please select a date.", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        String dateString = dateFormat.format(selectedDate.getTime());
+
         reservation.set_reservation_time(selectedTime);
-        reservation.set_reservation_date(selectedDate.getTime().toString());
+        reservation.set_reservation_date(dateString);
 
         Toast.makeText(editappointmentinfoActivity.this, "Reservation time: "+reservation.get_reservation_time()+"\nReservation date: "+reservation.get_reservation_date(), Toast.LENGTH_SHORT).show();
 
         // Validate reservation ID
-        if (validateReservationId(reservationId)) {
+        if (validateReservationId(reservation.get_reservation_id())) {
             // Update reservation if ID is valid
-            dbHelper.updateReservation(reservation); // Call the void method
+            boolean test= dbHelper.updateReservation(reservation); // Call the void method
+            if(test){
+                Toast.makeText(editappointmentinfoActivity.this, "true", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(editappointmentinfoActivity.this, "false", Toast.LENGTH_SHORT).show();
+            }
 
             Toast.makeText(editappointmentinfoActivity.this, "Appointment updated successfully.", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(editappointmentinfoActivity.this, AppointmentActivity.class);
