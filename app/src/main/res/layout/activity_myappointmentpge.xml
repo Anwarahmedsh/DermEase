@@ -5,15 +5,6 @@
     android:background="@color/lighterbeige">
 
 
-    <SearchView
-        android:id="@+id/searchView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="8dp"
-        android:background="#FFFEFE"
-        android:elevation="10dp" />
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -23,7 +14,7 @@
         android:id="@+id/cardViewAppointment11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/searchView1"
+        android:layout_below="@+id/search"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="10dp">

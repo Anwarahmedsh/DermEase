@@ -369,13 +369,21 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int userIdIndex = cursor.getInt(0);
-                int reservationIDIndex = cursor.getInt(1);
-                String dateIndex = cursor.getString(2);
-                String timeIndex = cursor.getString(3);
-                String docNameIndex = cursor.getString(4);
+                int userIdIndex = cursor.getColumnIndex(User_ID);
+                int resIdIndex = cursor.getColumnIndex(ReservationID);
+                int dateIndex = cursor.getColumnIndex(Date);
+                int timeIndex = cursor.getColumnIndex(Time);
+                int doctorIndex = cursor.getColumnIndex(Doc_Name);
+                int serviceIndex = cursor.getColumnIndex(Service);
 
-                reservationModel newreservation = new reservationModel(userIdIndex, reservationIDIndex, dateIndex, timeIndex, docNameIndex);
+                int userId = cursor.getInt(userIdIndex);
+                int resId = cursor.getInt(resIdIndex);
+                String date = cursor.getString(dateIndex);
+                String time = cursor.getString(timeIndex);
+                String doctorName = cursor.getString(doctorIndex);
+                String service = cursor.getString(serviceIndex);
+
+                reservationModel newreservation = new reservationModel(userId, resId, date, time, doctorName, service);
                 returnList.add(newreservation);
             } while (cursor.moveToNext());
         }

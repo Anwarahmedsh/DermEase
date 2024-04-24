@@ -136,21 +136,16 @@ public class AppointmentActivity extends AppCompatActivity {
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-
-            public boolean onQueryTextSubmit (String s) {
-                List<reservationModel> searchResult = DBHelper.search(s);
-                if(searchResult.isEmpty()) {
-                    Toast.makeText(this, " Reservation not found!",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    resArrayAdapter = new ArrayAdapter<reservationModel>(this,
-                            android.R.layout.simple_list_item_1, searchResult);
-                    resCard.setAdapter(resArrayAdapter);
+            public boolean onQueryTextSubmit(String s) {
+                List<reservationModel> searchResult = dbHelper.search(s);
+                if (searchResult.isEmpty()) {
+                    Toast.makeText(AppointmentActivity.this, "Reservation not found!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Update LinearLayout with search results
+                    updateLinearLayout(searchResult);
                 }
                 return false;
             }
-
 
             public boolean onQueryTextChange(String s) {
                 return false;
@@ -159,5 +154,17 @@ public class AppointmentActivity extends AppCompatActivity {
 
         return true;
     }
+
+    // Method to update LinearLayout with search results
+    private void updateLinearLayout(List<reservationModel> searchResult) {
+        parentLayout.removeAllViews(); // Clear existing views
+
+        for (reservationModel reservation : searchResult) {
+            View appointmentView = getLayoutInflater().inflate(R.layout.item_appointment, parentLayout, false);
+            setupCardView(appointmentView, reservation);
+            parentLayout.addView(appointmentView);
+        }
+    }
+
 
 }
