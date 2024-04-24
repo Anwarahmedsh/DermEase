@@ -2,16 +2,24 @@ package com.example.sprint1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.view.MenuInflater;
+import android.view.Menu;
+import android.widget.SearchView;
+import android.widget.Toast;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -20,6 +28,11 @@ public class AppointmentActivity extends AppCompatActivity {
     private LinearLayout parentLayout;
     private DBHelper dbHelper;
     private int userId;
+    CardView   resCard;
+
+    ArrayAdapter resArrayAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,4 +126,38 @@ public class AppointmentActivity extends AppCompatActivity {
         dbHelper.deleteReservation(reservation);
         parentLayout.removeView(cardViewContent); // Remove the card view from the parent layout
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type here to search");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+            public boolean onQueryTextSubmit (String s) {
+                List<reservationModel> searchResult = DBHelper.search(s);
+                if(searchResult.isEmpty()) {
+                    Toast.makeText(this, " Reservation not found!",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    resArrayAdapter = new ArrayAdapter<reservationModel>(this,
+                            android.R.layout.simple_list_item_1, searchResult);
+                    resCard.setAdapter(resArrayAdapter);
+                }
+                return false;
+            }
+
+
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+        return true;
+    }
+
 }

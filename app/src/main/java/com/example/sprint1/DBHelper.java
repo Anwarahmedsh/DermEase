@@ -355,5 +355,38 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return user;
     }
+
+    public List<reservationModel> search(String serviceType) {
+        List<reservationModel> returnList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Construct the query
+        String queryString = "Select * from " + RESERVATION + " WHERE " +
+                Service + " = '" + serviceType + "'";
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+
+        if (cursor.moveToFirst()) {
+            do {
+                int userIdIndex = cursor.getInt(0);
+                int reservationIDIndex = cursor.getInt(1);
+                String dateIndex = cursor.getString(2);
+                String timeIndex = cursor.getString(3);
+                String docNameIndex = cursor.getString(4);
+
+                reservationModel newreservation = new reservationModel(userIdIndex, reservationIDIndex, dateIndex, timeIndex, docNameIndex);
+                returnList.add(newreservation);
+            } while (cursor.moveToNext());
+        }
+
+
+        cursor.close();
+        db.close();
+
+        return returnList;
+    }
+
+
 }
 
