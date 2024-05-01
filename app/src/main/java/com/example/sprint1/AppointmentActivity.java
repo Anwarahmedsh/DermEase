@@ -133,7 +133,7 @@ public class AppointmentActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // Delete the reservation from the database
                 dbHelper.deleteReservation(reservation);
-                // Remove the card view from the parent layout
+                
                 parentLayout.removeView(cardViewContent);
                 Toast.makeText(AppointmentActivity.this, "Appointment deleted", Toast.LENGTH_SHORT).show();
             }
@@ -141,7 +141,6 @@ public class AppointmentActivity extends AppCompatActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // User clicked "No", so dismiss the dialog and do nothing
                 dialog.dismiss();
             }
         });
