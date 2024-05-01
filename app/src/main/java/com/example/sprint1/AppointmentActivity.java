@@ -19,6 +19,9 @@ import android.view.MenuInflater;
 import android.view.Menu;
 import android.widget.SearchView;
 import android.widget.Toast;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -123,9 +126,30 @@ public class AppointmentActivity extends AppCompatActivity {
     }
 
     private void deleteAppointment(View cardViewContent, reservationModel reservation) {
-        dbHelper.deleteReservation(reservation);
-        parentLayout.removeView(cardViewContent); // Remove the card view from the parent layout
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this appointment?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Delete the reservation from the database
+                dbHelper.deleteReservation(reservation);
+                // Remove the card view from the parent layout
+                parentLayout.removeView(cardViewContent);
+                Toast.makeText(AppointmentActivity.this, "Appointment deleted", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User clicked "No", so dismiss the dialog and do nothing
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
