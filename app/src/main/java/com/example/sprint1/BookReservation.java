@@ -192,7 +192,7 @@ public class BookReservation extends AppCompatActivity {
             return;
         }
 
-        Intent intent = new Intent(BookReservation.this, HomeActivity.class);
+        Intent intent = new Intent(BookReservation.this, AppointmentActivity.class);
         intent.putExtra("userID", userId);// Put the username as an extra
         startActivity(intent);
     }

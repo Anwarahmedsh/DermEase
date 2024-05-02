@@ -133,7 +133,7 @@ public class AppointmentActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 // Delete the reservation from the database
                 dbHelper.deleteReservation(reservation);
-                
+
                 parentLayout.removeView(cardViewContent);
                 Toast.makeText(AppointmentActivity.this, "Appointment deleted", Toast.LENGTH_SHORT).show();
             }
