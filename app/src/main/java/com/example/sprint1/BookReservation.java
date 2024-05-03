@@ -159,7 +159,7 @@ public class BookReservation extends AppCompatActivity {
 
 
         if (selectedDate == null) {
-            Toast.makeText(BookReservation.this, "Please select a date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BookReservation.this, "Please select a date,time and dermatologist", Toast.LENGTH_SHORT).show();
             return;
         }
         if (selectedTime == null) {
@@ -184,7 +184,7 @@ public class BookReservation extends AppCompatActivity {
         }
 
 
-        Toast.makeText(BookReservation.this, "Reservation submitted:\nDate: " + dateString + "\nTime: " + selectedTime + "\nDermatologist: " + selectedDermatologist, Toast.LENGTH_LONG).show();
+        Toast.makeText(BookReservation.this, "Appointment added:\nDate: " + dateString + "\nTime: " + selectedTime + "\nDermatologist: " + selectedDermatologist, Toast.LENGTH_LONG).show();
         reservation=new reservationModel(userId,NULL, dateString,selectedTime,selectedDermatologist,serviceType);
         if(!dbHelper.insertReservationData(reservation)){
 

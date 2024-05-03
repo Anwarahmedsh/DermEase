@@ -162,7 +162,7 @@ public class AppointmentActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String s) {
                 List<reservationModel> searchResult = dbHelper.search(s);
                 if (searchResult.isEmpty()) {
-                    Toast.makeText(AppointmentActivity.this, "Reservation not found!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AppointmentActivity.this, "Appointment not found!", Toast.LENGTH_SHORT).show();
                 } else {
                     // Update LinearLayout with search results
                     updateLinearLayout(searchResult);
